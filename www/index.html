@@ -350,30 +350,26 @@
 				alert('Entrara como administrador');
 				window.location='back/index.html';
 			}else{
-				if(clave == ''){
-					alert('DEBE INGRESAR UNA CLAVE');
-				}else{
-					var db = window.openDatabase("Database", "1.0", "TicketMobile", 200000);
-					db.transaction(function(tx){
-						tx.executeSql('SELECT * FROM cliente WHERE codigo = ? ;',[clave],function(tx,results){
-							var registro = results.rows.length;
-							if(registro > 0){
-								for(var j = 0; j < registro; j++){
-									var row1 = results.rows.item(j);
-									var id = row1.id;
-									var nombre = row1.nombre;
-									var apellido = row1.apellido;
-									$('#titulo').html('Bienvenido(a) <span style = "color:blue;" ><i>' + nombre + '  ' + apellido + ' </i></span>');
-									$('#modal').modal('show');
-									ver_menu(id);
-								}
-							}else{
-								alert('el codigo ingresado no exixte');
-								window.location = '';
+				var db = window.openDatabase("Database", "1.0", "TicketMobile", 200000);
+				db.transaction(function(tx){
+					tx.executeSql('SELECT * FROM cliente WHERE codigo = ? ;',[clave],function(tx,results){
+						var registro = results.rows.length;
+						if(registro > 0){
+							for(var j = 0; j < registro; j++){
+								var row1 = results.rows.item(j);
+								var id = row1.id;
+								var nombre = row1.nombre;
+								var apellido = row1.apellido;
+								$('#titulo').html('Bienvenido(a) <span style = "color:blue;" ><i>' + nombre + '  ' + apellido + ' </i></span>');
+								$('#modal').modal('show');
+								ver_menu(id);
 							}
-						},errorCB,successCB);
-					});
-				}
+						}else{
+							alert('el codigo ingresado no exixte');
+							window.location = '';
+						}
+					},errorCB,successCB);
+				});
 			}
 		}
 		$(document).ready(function(){
@@ -383,7 +379,7 @@
 			var a = hoy.getFullYear();
 			
 			var fechaA = (a)+'/'+(m+1)+'/'+d
-			$('#fechaActual').html('hoy es : ' + fechaA);
+			$('#fechaActual').html('FECHA : ' + fechaA);
 		});
 		
 		

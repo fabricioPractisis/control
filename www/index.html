@@ -260,7 +260,7 @@
 			// // tx.executeSql('DROP TABLE IF EXISTS Ingreso');
 			// tx.executeSql('CREATE TABLE IF NOT EXISTS Ingreso (id integer primary key AUTOINCREMENT,idBoleto integer, strQr text, strBarcode text, idCli interger, idCon integer,idLocB integer,nombreHISB text,documentoHISB text,strEstado text)');
 			//tx.executeSql('DROP TABLE IF EXISTS menu');
-			tx.executeSql('CREATE TABLE IF NOT EXISTS cliente (id integer primary key AUTOINCREMENT, nombre text, apellido text, email text, codigo text,cedula text,estado text)');
+			tx.executeSql('CREATE TABLE IF NOT EXISTS cliente (id integer primary key AUTOINCREMENT, id_emp text , nombre text, apellido text, email text, codigo text,cedula text,estado text)');
 			tx.executeSql('CREATE TABLE IF NOT EXISTS menu (id integer primary key AUTOINCREMENT,nombre text,precio float, desc text, est text)');
 			tx.executeSql('CREATE TABLE IF NOT EXISTS usu_pedido (id integer primary key AUTOINCREMENT,id_cli integer ,id_pro integer , cantidad integer ,fecha text)');
 			// tx.executeSql('CREATE TABLE IF NOT EXISTS localidad (id integer primary key AUTOINCREMENT,id_con integer,id_loc integer , nombre text)');

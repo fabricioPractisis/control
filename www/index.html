@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>CONTROL RESTAURANTE</title>
+  <title>Bootstrap Example</title>
   <meta charset="utf-8">
-<script src="js/jquery.js"></script>
-<script src="js/index.js"></script>
-<script src="js/jquery-ui.min.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css" /> 
-<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="js/jquery.js"></script>
+		<script src="js/index.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" /> 
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
   <style>
     /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
     .row.content {height: 1500px}
@@ -343,46 +343,47 @@
 					});
 		});
 
-
-		$(document).ready(function(){
-			
-			//$('#fechaActual').html('hoy es : ' +hoy +' '+ d + '  ' + m + ' '  + a + 'fa : ' + fechaA);
-			
-			
-			$('#write').val('');
-			$("#enter").click(function(){
-				var clave = $('#write').val();
+		function enter(){
+			var clave = $('#write').val();
 				
-				if(clave == '7777'){
-					alert('Entrara como administrador');
-					window.location='back/index.html';
+			if(clave == '7777'){
+				alert('Entrara como administrador');
+				window.location='back/index.html';
+			}else{
+				if(clave == ''){
+					alert('DEBE INGRESAR UNA CLAVE');
 				}else{
-					if(clave == ''){
-						alert('DEBE INGRESAR UNA CLAVE');
-					}else{
-						var db = window.openDatabase("Database", "1.0", "TicketMobile", 200000);
-						db.transaction(function(tx){
-							tx.executeSql('SELECT * FROM cliente WHERE codigo = ? ;',[clave],function(tx,results){
-								var registro = results.rows.length;
-								if(registro > 0){
-									for(var j = 0; j < registro; j++){
-										var row1 = results.rows.item(j);
-										var id = row1.id;
-										var nombre = row1.nombre;
-										var apellido = row1.apellido;
-										$('#titulo').html('Bienvenido(a) <span style = "color:blue;" ><i>' + nombre + '  ' + apellido + ' </i></span>');
-										$('#modal').modal('show');
-										ver_menu(id);
-									}
-								}else{
-									alert('el codigo ingresado no exixte');
-									window.location = '';
+					var db = window.openDatabase("Database", "1.0", "TicketMobile", 200000);
+					db.transaction(function(tx){
+						tx.executeSql('SELECT * FROM cliente WHERE codigo = ? ;',[clave],function(tx,results){
+							var registro = results.rows.length;
+							if(registro > 0){
+								for(var j = 0; j < registro; j++){
+									var row1 = results.rows.item(j);
+									var id = row1.id;
+									var nombre = row1.nombre;
+									var apellido = row1.apellido;
+									$('#titulo').html('Bienvenido(a) <span style = "color:blue;" ><i>' + nombre + '  ' + apellido + ' </i></span>');
+									$('#modal').modal('show');
+									ver_menu(id);
 								}
-							},errorCB,successCB);
-						});
-					}
+							}else{
+								alert('el codigo ingresado no exixte');
+								window.location = '';
+							}
+						},errorCB,successCB);
+					});
 				}
-			});
+			}
+		}
+		$(document).ready(function(){
+			var hoy = new Date();
+			var d = hoy.getDate();
+			var m = hoy.getMonth();
+			var a = hoy.getFullYear();
+			
+			var fechaA = (a)+'/'+(m+1)+'/'+d
+			$('#fechaActual').html('hoy es : ' + fechaA);
 		});
 		
 		
@@ -462,7 +463,7 @@
 											</tr>\
 										</table>\
 									</td>';
-						if(i == 1){
+						if(i == 0){
 							tr+='</tr>';
 							i=0;
 						}else{
@@ -541,11 +542,11 @@
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>                        
-						</button>
+						</button>-->
 					<a class="navbar-brand" href="javascript:void(0);" style = 'padding:0;'>
 						<img class="l-color" src="img/logo1.png" style="width:60px">
 					</a>
@@ -555,7 +556,7 @@
 						<li class="active" onclick = 'window.location=""'><a href="javascript:void(0);">INICIO</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="javascript:void(0);"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+						<li><a href="back/index.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 					</ul>
 				</div>
 			</div>
@@ -581,11 +582,11 @@
 									<li class="symbol"><span class="off">9</span><span class="on">(</span></li>
 									<li class="symbol"><span class="off">0</span><span class="on">)</span></li>
 									<li class="delete lastitem"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></li>
-									<li class="return lastitem"  id="enter">enter</li>
+									<li onclick = 'enter();' class="return lastitem"  id="enter">enter</li>
 								</ul>
 							</div>
 						</center>
-						<input id = 'write' type="number" class="form-control" placeholder="ingresa aqui tu clave" />
+						<input id = 'write' type="password" readonly disabled class="form-control" placeholder="ingresa aqui tu clave" />
 					</fieldset>
 				</div>
 				<div class="col-md-2"></div>
